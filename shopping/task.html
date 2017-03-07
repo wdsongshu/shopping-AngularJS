@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车例子</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js"></script>
+    <script type="text/javascript" src="js/shopping.js"></script>
+    <script type="text/javascript" src="js/foodsList.js"></script>
+</head>
+<body>
+<div class="shopping" ng-controller="showItem">
+    <h5>商品列表</h5>
+    <div>
+        <ul>
+            <li ng-repeat="foods in foodsList" item-id={{foods.id}}>
+                <p>{{foods.name}}</p>
+                <p>{{foods.price}}</p>
+                <p><a href="javascript:void(0);" ng-click="buyAction($event)" name={{foods.name}} price={{foods.price}}
+                      item-id={{foods.id}}>购买</a></p>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <ul>
+            <li ng-repeat="bought in boughtList" item-id={{bought.id}}>
+                <span>{{bought.name}}</span>
+                <span>{{bought.price}}</span>
+                <span item-id={{bought.id}}>
+                  <a href="javascript:void(0)" ng-click="bought.num=bought.num+1;changeNumber($event,bought.num)">+</a>
+                  <input type="number" ng-model="bought.num" min=0 ng-init="bought.num=1"
+                         ng-click="changeNum(bought.id,bought.num)"/>
+                   <a href="javascript:void(0)" ng-click="bought.num=bought.num+1;changeNumber($event,bought.num)">-</a>
+                </span>
+                <a href="javascript:void(0)" ng-click="delectBoughtList($event)" item-id={{bought.id}}>删除</a>
+            </li>
+        </ul>
+        <p ng-init=0>总价格：{{ total | number:1}}</p>
+    </div>
+</div>
+</body>
+
+</html>
+
+
+
